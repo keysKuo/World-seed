@@ -1,0 +1,141 @@
+<!-- END header -->
+
+{{#if slides}}
+<section class="site-section pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="owl-carousel owl-theme home-slider">
+          <div>
+            <a href="/blogs/{{slides.top1.slug}}" class="a-block d-flex align-items-center height-lg"
+              style="background-image: url('/uploads/{{slides.top1.image}}'); ">
+              <div class="text half-to-full">
+                <span class="category mb-5">{{slides.top1.type}}</span>
+                <div class="post-meta">
+
+                  <span class="author mr-2"><img src="/uploads/{{slides.top1.author.avatar}}"
+                      alt="{{slides.top1.author.username}}"> {{slides.top1.author.username}}</span>&bullet;
+                  <span class="mr-2">{{slides.top1.createdAt}}</span> &bullet;
+                  <span class="ml-2"><span class="ti-thumb-up"></span> {{slides.top1.num_likes}}</span>
+
+                </div>
+                <h3>{{slides.top1.title}}</h3>
+                <p>{{slides.top1.description}}</p>
+              </div>
+            </a>
+          </div>
+          <div>
+            <a href="/blogs/{{slides.top2.slug}}" class="a-block d-flex align-items-center height-lg"
+              style="background-image: url('/uploads/{{slides.top2.image}}'); ">
+              <div class="text half-to-full">
+                <span class="category mb-5">{{slides.top2.type}}</span>
+                <div class="post-meta">
+
+                  <span class="author mr-2"><img src="/uploads/{{slides.top2.author.avatar}}"
+                      alt="{{slides.top2.author.username}}"> {{slides.top2.author.username}}</span>&bullet;
+                  <span class="mr-2">{{slides.top2.createdAt}}</span> &bullet;
+                  <span class="ml-2"><span class="ti-thumb-up"></span> {{slides.top2.num_likes}}</span>
+
+                </div>
+                <h3>{{slides.top2.title}}</h3>
+                <p>{{slides.top2.description}}</p>
+              </div>
+            </a>
+          </div>
+          <div>
+            <a href="/blogs/{{slides.top3.slug}}" class="a-block d-flex align-items-center height-lg"
+              style="background-image: url('/uploads/{{slides.top3.image}}'); ">
+              <div class="text half-to-full">
+                <span class="category mb-5">{{slides.top3.type}}</span>
+                <div class="post-meta">
+
+                  <span class="author mr-2"><img src="/uploads/{{slides.top3.author.avatar}}"
+                      alt="{{slides.top3.author.username}}"> {{slides.top3.author.username}}</span>&bullet;
+                  <span class="mr-2">{{slides.top3.createdAt}}</span> &bullet;
+                  <span class="ml-2"><span class="ti-thumb-up"></span> {{slides.top3.num_likes}}</span>
+
+                </div>
+                <h3>{{slides.top3.title}}</h3>
+                <p>{{slides.top3.description}}</p>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</section>
+{{/if}}
+<!-- END section -->
+<section class="site-section py-sm">
+
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="mb-4">Latest Posts</h2>
+
+      </div>
+    </div>
+    <div class="row blog-entries">
+      <div class="col-md-12 col-lg-8 main-content">
+        <div class="row">
+          {{#if slides}}
+          {{#each data}}
+          <div class="col-md-6">
+            <a href="/blogs/{{slug}}" class="blog-entry">
+              <img src="/uploads/{{image}}" alt="Image placeholder">
+              <div class="blog-content-body">
+                <div class="post-meta">
+                  <span class="author mr-2"><img src="/uploads/{{author.avatar}}" alt="{{author.username}}">
+                    {{author.username}}</span>&bullet;
+                  <span class="mr-2">{{createdAt}}</span>
+                  {{!-- <span class="ml-2"><span class="fa fa-comments"></span> 3</span> --}}
+                </div>
+                <h2>{{title}}</h2>
+              </div>
+            </a>
+          </div>
+          {{/each}}
+          {{/if}}
+
+
+          <div class="col-md-6">
+            <a href="blog-single.html" class="blog-entry element-animate" data-animate-effect="fadeIn">
+              <img src="images/img_12.jpg" alt="Image placeholder">
+              <div class="blog-content-body">
+                <div class="post-meta">
+                  <span class="author mr-2"><img src="images/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;
+                  <span class="mr-2">March 15, 2018 </span> &bullet;
+                  <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                </div>
+                <h2>How to Find the Video Games of Your Youth</h2>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-md-12 text-center">
+            <nav aria-label="Page navigation" class="text-center">
+              <ul class="pagination">
+                <li class="page-item  active"><a class="page-link" href="#">&lt;</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- END main-content -->
