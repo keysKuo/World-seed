@@ -183,9 +183,6 @@ router.post('/edit', (req, res, next) => {
 
 			})
 			.catch(next)
-
-	
-
 	})
 })
 
@@ -231,7 +228,6 @@ router.post('/login', (req, res, next) => {
 		.catch(next)
 })
 
-
 router.get('/contact', (req, res, next) => {
 	if (!req.session.user) {
 		return res.redirect('/users/login');
@@ -255,16 +251,12 @@ router.get('/', function (req, res, next) {
 	res.sendStatus("404", { status: '404 Not Found' });
 });
 
-
-
-
 router.get('/:slug', (req, res, next) => {
 	Users.findOne({ slug: req.params.slug })
 		.then(user => {
 			if (!user) {
 				return res.render('about', { msg: '404 Not Found' });
 			}
-
 
 			var data = [];
 			Blogs.find({ "author.username": user.username }, (err, blogs) => {
@@ -305,7 +297,17 @@ router.get('/:slug', (req, res, next) => {
 			});
 		})
 		.catch(next);
+})
 
+// forgot password
+router.post('/forgotpassword', (req, res, next) => {
+	const {username, email} = req.body;
+
+	Users.findOne({username, email})
+		.then(user => {
+			
+		})
+		.catch(next)
 })
 
 

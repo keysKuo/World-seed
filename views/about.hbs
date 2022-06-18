@@ -3,10 +3,8 @@
 
 <section class="site-section pt-5">
   <div class="container">
-
-    <div class="row blog-entries">
+    <section class="row blog-entries">
       <div class="col-md-12 col-lg-8 main-content">
-
         <div class="row">
           <div class="col-md-12">
             <h2 class="mb-4">Hi There! I'm {{bloggerName}}</h2>
@@ -26,7 +24,8 @@
                 <div class="image" style="background-image: url('/uploads/{{image}}');"></div>
                 <span class="text">
                   <div class="post-meta">
-                    <span class="author mr-2"><img src="/uploads/{{avatar}}" alt="{{authorName}}"> {{authorName}}</span>&bullet;
+                    <span class="author mr-2"><img src="/uploads/{{avatar}}" alt="{{authorName}}">
+                      {{authorName}}</span>&bullet;
                     <span class="mr-2">{{createdAt}} </span> &bullet;
                     <span class="ml-2"><span class="ti-thumb-up"></span> {{num_likes}} </span>
                   </div>
@@ -36,10 +35,9 @@
             </div>
             {{/each}}
             <!-- END post -->
-
           </div>
         </div>
-
       </div>
-
-      <!-- END main-content -->
+    </section>
+</section>
+<!-- END main-content -->

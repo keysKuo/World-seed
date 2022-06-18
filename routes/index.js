@@ -47,7 +47,7 @@ Blogs.find({}, (err, blogs) => {
 			authorSlug: "pham-nhat-vuong-admin"
 		},
 		title: "Ngày đêm tối",
-		type: "life",
+		type: "Life",
 		content: "Sáng 4/5, Hội nghị Trung ương 5 khóa XIII khai mạc tại Hà Nội. Dự kiến trong 7 ngày, các đại biểu sẽ tập trung thảo luận,",
 		image: "darkart.png",
 		description: "CAIRO",
@@ -139,6 +139,10 @@ router.get('/collections/:key', (req, res, next) => {
 				type: req.params.key,
 				username: current_user ? current_user.username : "Người lạ", 
 				status: current_user ? 'Đăng Xuất' : 'Đăng Nhập',
+				main_color: current_user ? current_user.main_color : '#000000',
+				googleId: (current_user && current_user.googleId) ? current_user.googleId : '',
+				signed: current_user ? true : false,
+				slug: current_user ? current_user.slug : '',
 				data })
 		})
 		.catch(next)

@@ -80,16 +80,10 @@
                 </div>
 
               </li>
-              {{!-- <li class="nav-item">
-                <a class="nav-link" href="/users/{{slug}}">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/users/contact">Contact</a>
-              </li> --}}
-
               {{#if googleId}}
 
               {{else}}
+
               <li class="nav-item">
                 <a class="nav-link" href="/blogs/create">Create Post</a>
               </li>
@@ -100,11 +94,11 @@
                   <span class="user">{{username}}</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                  {{#if googleId }}
+                  {{#if googleId}}
 
                   {{else}}
-                  {{#if hidebox}}
+                  {{#if googleId}}
+
                   {{else}}
                   <a class="dropdown-item" href="/users/{{slug}}">Thông tin</a>
                   {{/if}}

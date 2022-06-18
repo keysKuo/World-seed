@@ -11,8 +11,7 @@
       <!-- Login Form -->
       <form method="POST" action="/users/login">
         <div class="login-box">
-          <input autofocus name="email" type="email" id="email" class="fadeIn second" name="login"
-            placeholder="email">
+          <input autofocus name="email" type="email" id="email" class="fadeIn second" name="login" placeholder="email">
 
           <input name="password" type="password" id="password" class="fadeIn third" name="login" placeholder="password">
         </div>
@@ -55,14 +54,13 @@
 
         </div>
         <a class="register-btn underlineHover" href="#">Sign up</a><br>
-        <a class="underlineHover" href="#">Forgot Password?</a>
+        <a class="forgotpassword-btn underlineHover" href="#">Forgot Password?</a>
       </div>
 
     </div>
   </div>
 
   <div class="form-register fadeInDown">
-
     <div id="formContent">
 
       <div class="form-group">
@@ -81,20 +79,36 @@
           <!-- Remind Passowrd -->
           <div id="formFooter">
             <a class="login-btn underlineHover" href="#">Sign in</a><br>
-            <a class="underlineHover" href="#">Forgot Password?</a>
+            <a class="forgotpassword-btn underlineHover" href="#">Forgot Password?</a>
           </div>
-
       </div>
-
-
       <!-- Remind Passowrd -->
-
-
     </div>
-
-
-
   </div>
+
+
+  <div class="form-forgotpassword fadeInDown">
+    <div id="formContent">
+      <div class="form-group">
+        <form action="/users/forgotpassword" method="POST">
+          <div class="register-box"><br>
+          <label for="username">Forgot Password</label>
+            <input autofocus name="username" type="text" id="username" class="fadeIn second" placeholder="Username">
+            <input name="email" type="email" id="username" class="fadeIn second" placeholder="Re-Enter Your Email Address">
+            {{!-- <input type="date" name="dob" id="dob" class="fadeIn second "> --}}
+            {{!-- <input name="password" type="password" id="password" class="fadeIn second" name="login" placeholder="Password"> --}}
+          </div>
+          <input type="submit" class="fadeIn third" value="Confirm">
+          <!-- Remind Passowrd -->
+          <div id="formFooter">
+            <a class="login-btn underlineHover" href="#">Sign in</a><br>
+            <a class="forgotpassword-btn underlineHover" href="#">Forgot Password?</a>
+          </div>
+      </div>
+      <!-- Remind Passowrd -->
+    </div>
+  </div>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css    ">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -104,6 +118,7 @@
   <script>
     $(document).ready(function () {
       $('.form-register').hide();
+      $('.form-forgotpassword').hide();
       $('.register-btn').click(function () {
         $('.form-login').hide();
         $('.form-register').fadeIn();
@@ -115,7 +130,14 @@
         $('.form-login').fadeIn();
         $('#username').focus();
       })
+
+      $('.forgotpassword-btn').click(function () {
+        $('.form-register').hide();
+        $('.form-login').hide();
+        $('.form-forgotpassword').fadeIn();
+      })
     })
   </script>
+
 
 </div>
