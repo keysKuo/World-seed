@@ -81,6 +81,7 @@
             <a class="login-btn underlineHover" href="#">Sign in</a><br>
             <a class="forgotpassword-btn underlineHover" href="#">Forgot Password?</a>
           </div>
+        </form>
       </div>
       <!-- Remind Passowrd -->
     </div>
@@ -92,11 +93,13 @@
       <div class="form-group">
         <form action="/users/forgotpassword" method="POST">
           <div class="register-box"><br>
-          <label for="username">Forgot Password</label>
+            <label for="username">Forgot Password</label>
             <input autofocus name="username" type="text" id="username" class="fadeIn second" placeholder="Username">
-            <input name="email" type="email" id="username" class="fadeIn second" placeholder="Re-Enter Your Email Address">
+            <input name="email" type="email" id="username" class="fadeIn second"
+              placeholder="Re-Enter Your Email Address">
             {{!-- <input type="date" name="dob" id="dob" class="fadeIn second "> --}}
-            {{!-- <input name="password" type="password" id="password" class="fadeIn second" name="login" placeholder="Password"> --}}
+            {{!-- <input name="password" type="password" id="password" class="fadeIn second" name="login"
+              placeholder="Password"> --}}
           </div>
           <input type="submit" class="fadeIn third" value="Confirm">
           <!-- Remind Passowrd -->
@@ -104,6 +107,7 @@
             <a class="login-btn underlineHover" href="#">Sign in</a><br>
             <a class="forgotpassword-btn underlineHover" href="#">Forgot Password?</a>
           </div>
+        </form>
       </div>
       <!-- Remind Passowrd -->
     </div>

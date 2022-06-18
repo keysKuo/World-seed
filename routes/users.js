@@ -171,7 +171,7 @@ router.post('/edit', (req, res, next) => {
 			}
 		})
 
-		Users.findOne({email: req.session.user.email})
+		Users.findOne({ email: req.session.user.email })
 			.then(current_user => {
 				current_user.personal_concept = fields.personal_concept[0];
 				current_user.phone = fields.phone[0];
@@ -179,7 +179,7 @@ router.post('/edit', (req, res, next) => {
 				current_user.avatar = filename;
 				current_user.user_bio = fields.user_bio[0];
 				current_user.save()
-				return res.redirect('/')	
+				return res.redirect('/')
 
 			})
 			.catch(next)
@@ -242,6 +242,65 @@ router.get('/contact', (req, res, next) => {
 	});
 })
 
+// forgot password
+router.post('/forgotpassword', (req, res, next) => {
+	const { username, email } = req.body;
+	// console.log(username)
+	// console.log(email)
+
+	Users.findOne({ username, email })
+		.then(user => {
+			var newpassword = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6);
+			bcrypt.hash(newpassword, saltRounds, function (err, hash) {
+				if (err) {
+					return res.json({ success: false, msg: err });
+				}
+				user.password = hash;
+				// new Users(current_user).save().then(res.redirect('/users/login'));
+				user.save();
+			});
+			return res.render('login', {
+				msgSuccess: "Mật khẩu mới của bạn là: " + newpassword,
+			});
+		})
+		.catch(next)
+})
+
+// change password
+router.get('/changepassword', (req, res, next) => {
+	return res.render('changepassword');
+})
+
+router.post('/changepassword', (req, res, next) => {
+	const { old_password, new_password_1, new_password_2 } = req.body;
+	if (new_password_1 != new_password_2) {
+		return res.render('changepassword', {
+			msg: "Mật khẩu mới phải giống nhau"
+		});
+	}
+	Users.findOne({ email: req.session.user.email })
+		.then(current_user => {
+			bcrypt.compare(old_password, current_user.password, function (err, result) {
+				if (result) {
+					bcrypt.hash(new_password_1, saltRounds, function (err, hash) {
+						if (err) {
+							return res.json({ success: false, msg: err });
+						}
+						current_user.password = hash;
+						// new Users(current_user).save().then(res.redirect('/users/login'));
+						current_user.save();
+					});
+					return res.redirect('/')
+				}
+				else {
+					return res.render('changepassword', { msg: 'Mật khẩu không chính xác' });
+				}
+			});
+		})
+		.catch(next)
+
+})
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 	if (!req.session.user) {
@@ -250,6 +309,7 @@ router.get('/', function (req, res, next) {
 
 	res.sendStatus("404", { status: '404 Not Found' });
 });
+
 
 router.get('/:slug', (req, res, next) => {
 	Users.findOne({ slug: req.params.slug })
@@ -300,15 +360,7 @@ router.get('/:slug', (req, res, next) => {
 })
 
 // forgot password
-router.post('/forgotpassword', (req, res, next) => {
-	const {username, email} = req.body;
 
-	Users.findOne({username, email})
-		.then(user => {
-			
-		})
-		.catch(next)
-})
 
 
 // router
