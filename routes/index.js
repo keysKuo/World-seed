@@ -4,12 +4,13 @@ const Users = require('../models/Users');
 const Blogs = require('../models/Blogs');
 const { normalizeDate } = require('../libs/functions');
 const res = require('express/lib/response');
+const { type } = require('express/lib/response');
 
 Users.find({}, (err, users) => {
 	// console.log(users)
 	// console.log(err)
 	if (err) {
-		return res.json({err: err})
+		return res.json({ err: err })
 	}
 	if (users.length != 0) {
 		return
@@ -31,7 +32,7 @@ Users.find({}, (err, users) => {
 })
 Blogs.find({}, (err, blogs) => {
 	if (err) {
-		return res.json({err: err})
+		return res.json({ err: err })
 	}
 	if (blogs.length != 0) {
 		return
@@ -60,7 +61,7 @@ Blogs.find({}, (err, blogs) => {
 router.get('/', (req, res, next) => {
 	Blogs.find({})
 		.then((blogs) => {
-			
+
 			if (blogs.length == 0) {
 				return res.json({ success: false, msg: 'Chưa có blog' });
 			}
@@ -98,6 +99,7 @@ router.get('/', (req, res, next) => {
 				slug: current_user ? current_user.slug : '',
 				status: current_user ? 'Đăng Xuất' : 'Đăng Nhập',
 				username: current_user ? current_user.username : 'Người lạ',
+				signed: current_user ? true : false,
 				bloggerName: randomBlogger.username,
 				bloggerSlug: randomBlogger.authorSlug,
 				avatar: randomBlogger.avatar,
@@ -110,6 +112,37 @@ router.get('/', (req, res, next) => {
 		.catch(next);
 });
 
+// collections slug
+router.get('/collections/:key', (req, res, next) => {
+	Blogs.find({ type: req.params.key })
+		.then(blogs => {
+			var data = blogs.map(blog => {
+				console.log(blog.author.avatar)
+
+				return {
+					authorName: blog.author.username,
+					title: blog.title,
+					image: blog.image,
+					avatar: blog.author.avatar,
+					createdAt: normalizeDate(blog.createdAt),
+					slug: blog.slug,
+					num_likes: (blog.likers).length,
+				}
+			})
+			
+			const current_user = req.session.user;
+
+			return res.render('collections', { 
+				concept: req.params.key,
+				hidebox: true, 
+				layouts: true, 
+				type: req.params.key,
+				username: current_user ? current_user.username : "Người lạ", 
+				status: current_user ? 'Đăng Xuất' : 'Đăng Nhập',
+				data })
+		})
+		.catch(next)
+});
 
 
 module.exports = router;

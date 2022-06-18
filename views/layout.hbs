@@ -72,11 +72,11 @@
                 <a class="nav-link dropdown-toggle" href="category.html" id="dropdown05" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">Categories</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown05">
-                  <a class="dropdown-item" href="category.html">Lifestyle</a>
-                  <a class="dropdown-item" href="category.html">Food</a>
-                  <a class="dropdown-item" href="category.html">Adventure</a>
-                  <a class="dropdown-item" href="category.html">Travel</a>
-                  <a class="dropdown-item" href="category.html">Business</a>
+                  <a class="dropdown-item" href="/collections/Life">Lifestyle</a>
+                  <a class="dropdown-item" href="/collections/Food">Food</a>
+                  <a class="dropdown-item" href="/collections/Adventure">Adventure</a>
+                  <a class="dropdown-item" href="/collections/Travel">Travel</a>
+                  <a class="dropdown-item" href="/collections/Bussiness">Business</a>
                 </div>
 
               </li>
@@ -101,8 +101,17 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
+                  {{#if googleId }}
+
+                  {{else}}
+                  {{#if hidebox}}
+                  {{else}}
                   <a class="dropdown-item" href="/users/{{slug}}">Thông tin</a>
-                  <a class="dropdown-item" href="#">Another action</a>
+                  {{/if}}
+                  {{#if signed}}
+                  <a class="dropdown-item" href="/users/edit">Chỉnh thông tin</a>
+                  {{/if}}
+                  {{/if}}
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/users/login">{{status}}</a>
                 </div>
@@ -122,12 +131,17 @@
       <div class="sidebar-box search-form-wrap">
         <form action="#" class="search-form">
           <div class="form-group">
+            {{#if hidebox}}
+            {{else}}
             <span class="icon fa fa-search"></span>
             <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+            {{/if}}
           </div>
         </form>
       </div>
       <!-- END sidebar-box -->
+      {{#if hidebox}}
+      {{else}}
       <div class="sidebar-box">
         <div class="bio text-center">
           <img src="/uploads/{{avatar}}" alt="Image Placeholder" class="img-fluid">
@@ -151,6 +165,7 @@
           </div>
         </div>
       </div>
+      {{/if}}
       <!-- END sidebar-box -->
       {{!-- <div class="sidebar-box">
         <h3 class="heading">Popular Posts</h3>

@@ -117,6 +117,78 @@ router.post('/update', (req, res, next) => {
 	})
 })
 
+router.get('/edit', (req, res, next) => {
+	return res.render('editprofile')
+})
+router.post('/edit', (req, res, next) => {
+	const form = new multiparty.Form()
+	form.parse(req, (err, fields, files) => {
+
+		if (err) {
+			return res.render("editprofile", { message: err.message, ...fields })
+		}
+
+		if (!files.photo || files.photo.length == 0) {
+			return res.render("editprofile", { message: "Chưa chọn file hình", ...fields });
+		}
+
+
+		let path = files.photo[0].path
+		let filename = files.photo[0].originalFilename //lấy tên file
+		let parts = filename.split('.')
+		let ext = parts[parts.length - 1].toLowerCase() //lấy phần mở rộng
+		// check xem file ảnh thuộc mảng
+		if (!allow_extension.find(s => s == ext)) {
+			return res.render("editprofile", { message: "Vui lòng chọn file hình", ...fields })
+		}
+		//lấy tên upload lên để lưu nhưng sẽ thêm số phía sau nếu trùng tên
+
+		let newname = filename.substr(0, filename.length - ext.length - 1)
+		let idx = ""
+		//cố định phần mở rộng là png vì người dùng có thể upload 2 file cùng tên khác phần mở rộng thì hệ thống sẽ không thể lưu 2 file ghi chú cùng tên với phần mở rộng là txt được.
+		//có thể không cần cố định phần mở rộng bằng cách dùng tên file ngẫu nhiên
+		ext = "png"
+		filename = newname + '.' + ext
+		while (fileapi.isexist(pathapi.join(upload_dir, filename))) {
+			if (!idx)
+				idx = 1
+			else
+				idx += 1
+			filename = newname + idx.toString() + '.' + ext
+			// console.log(upload_dir, filename)
+		}
+		let newpath = pathapi.join(upload_dir, filename)
+
+		fileapi.move(path, newpath, (err) => {
+			if (err)
+				return res.render("editprofile", { message: "không thể lưu tập tin: " + err.message, ...fields })
+			//lưu ghi chú nếu có
+			if (fields.note && fields.note.length > 0 && fields.note[0]) {
+				fileapi.writefile(pathapi.join(upload_dir, newname + idx.toString() + '.txt'), fields.note[0], err => {
+					if (err)
+						console.log('Lưu ghi chú bị lỗi:', err)
+				})
+			}
+		})
+
+		Users.findOne({email: req.session.user.email})
+			.then(current_user => {
+				current_user.personal_concept = fields.personal_concept[0];
+				current_user.phone = fields.phone[0];
+				current_user.main_color = fields.main_color[0];
+				current_user.avatar = filename;
+				current_user.user_bio = fields.user_bio[0];
+				current_user.save()
+				return res.redirect('/')	
+
+			})
+			.catch(next)
+
+	
+
+	})
+})
+
 // router.get('/register', (req, res) => {
 // 	res.render('register');
 // })
@@ -209,6 +281,7 @@ router.get('/:slug', (req, res, next) => {
 						avatar: user.avatar,
 						description: blog.description,
 						createdAt: normalizeDate(blog.createdAt),
+						num_likes: blog.likers.length,
 						slug: blog.slug,
 					}
 				})
@@ -224,7 +297,9 @@ router.get('/:slug', (req, res, next) => {
 					avatar: user.avatar,
 					username: req.session.user ? req.session.user.username : 'Người lạ',
 					bloggerName: user.username,
-					status: req.session.user ? 'Logout' : 'Login',
+					status: req.session.user ? 'Đăng xuất' : 'Đăng nhập',
+					hidebox: true,
+					signed: current_user ? true : false,
 					data: data,
 				});
 			});
@@ -232,45 +307,6 @@ router.get('/:slug', (req, res, next) => {
 		.catch(next);
 
 })
-
-router.post('/:slug/edit', (req, res, next) => {
-	// var data = {phone: req.body.phone, user_bio: req.body.user_bio}
-	Users.findOne({ slug: req.params.slug })
-		.then((user) => {
-			var data = { ...user._doc, phone: req.body.phone, user_bio: req.body.user_bio };
-
-			user.delete();
-			new Users(data).save().then(res.redirect('/'))
-
-		})
-		.catch(next)
-})
-
-router.get('/:slug/edit', (req, res, next) => {
-	Users.findOne({ slug: req.params.slug })
-		.then(user => {
-			if (!user) {
-				return res.send('404 Not found');
-			}
-
-			var data = {
-				slug: user.slug,
-				username: user.username,
-				email: user.email,
-				dob: !user.dob ? 'Chưa có' : calculateAge(user.dob),
-				phone: user.phone ? user.phone : 'Chưa có',
-				blog_counter: user.blog_counter,
-				user_bio: user.user_bio ? user.user_bio : 'Chưa có',
-				slug: user.slug,
-			}
-
-			// return res.render('user', { username: req.session.username ? req.session.username : 'Người lạ', data: data })
-
-			return res.render('edit', { data: data })
-		}).catch(next)
-	// res.render('edit')
-})
-
 
 
 // router

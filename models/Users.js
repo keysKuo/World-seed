@@ -16,7 +16,7 @@ const Users = new Schema(
         personal_concept: { type: String },
         main_color: { type: String },
         blog_counter: { type: Number },
-        slug: { type: String, slug: 'username', sparse: true, unique: true }
+        slug: { type: String, slug: 'email', sparse: true, unique: true }
     },
     {
         timestamps: true,
