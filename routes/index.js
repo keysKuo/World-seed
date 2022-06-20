@@ -112,6 +112,11 @@ router.get('/', (req, res, next) => {
 		.catch(next);
 });
 
+router.post('/', (req, res, next) => {
+	const { idx } =  req.body;
+	
+})
+
 // collections slug
 router.get('/collections/:key', (req, res, next) => {
 	Blogs.find({ type: req.params.key })

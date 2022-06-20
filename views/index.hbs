@@ -87,7 +87,7 @@
         <div class="row">
           {{#if slides}}
           {{#each data}}
-          <div class="col-md-6">
+          <div class="single-post col-md-6">
             <a href="/blogs/{{slug}}" class="blog-entry">
               <img src="/uploads/{{image}}" alt="Image placeholder">
               <div class="blog-content-body">
@@ -103,6 +103,10 @@
           </div>
           {{/each}}
           {{/if}}
+
+          <div class="col-md-12">
+            <a href="#" id="loadMore">Load More</a>
+          </div>
 
 
           <div class="col-md-6">
@@ -139,3 +143,21 @@
       </div>
 
       <!-- END main-content -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>  
+      
+      $(document).ready(function(){
+        $(".single-post").slice(6).hide();
+        $("#loadMore").on("click", function(e){
+          e.preventDefault();
+          $(".single-post:hidden").slice(0, 6).fadeIn();
+          if($(".single-post:hidden").length == 0) {
+            $('#loadMore').hide();
+          }
+        });
+        
+      })
+
+    </script>
