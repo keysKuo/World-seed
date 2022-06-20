@@ -240,8 +240,4 @@ $('#unlikeBtn').click(function() {
 })
 
 
-$('#loadMore').click(function() {
-  
-})
-
 

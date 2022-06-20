@@ -8,22 +8,28 @@
                         <h2>{{type}} Posts</h2>
                     </div>
                     <div class="col-md-12">
-                        {{#each data}}
-                        <div class="post-entry-horzontal">
-                            <a href="/blogs/{{slug}}">
-                                <div class="image" style="background-image: url('/uploads/{{image}}');"></div>
-                                <span class="text">
-                                    <div class="post-meta">
-                                        <span class="author mr-2"><img src="/uploads/{{avatar}}" alt="{{authorName}}">
-                                            {{authorName}}</span>&bullet;
-                                        <span class="mr-2">{{createdAt}} </span> &bullet;
-                                        <span class="ml-2"><span class="ti-thumb-up"></span> {{num_likes}}</span>
-                                    </div>
-                                    <h2>{{title}}</h2>
-                                </span>
-                            </a>
-                        </div>
-                        {{/each}}
+                        {{#if data}}
+                            {{#each data}}
+                            <div class="post-entry-horzontal">
+                                <a href="/blogs/{{slug}}">
+                                    <div class="image" style="background-image: url('/uploads/{{image}}');"></div>
+                                    <span class="text">
+                                        <div class="post-meta">
+                                            <span class="author mr-2"><img src="/uploads/{{avatar}}" alt="{{authorName}}">
+                                                {{authorName}}</span>&bullet;
+                                            <span class="mr-2">{{createdAt}} </span> &bullet;
+                                            <span class="ml-2"><span class="ti-thumb-up"></span> {{num_likes}}</span>
+                                        </div>
+                                        <h2>{{title}}</h2>
+                                    </span>
+                                </a>
+                            </div>
+                            {{/each}}
+
+                        {{else}}
+                            <div class="post-entry-horzontal">Không tìm thấy bài đăng nào phù hợp</div>
+                        {{/if}}
+
                         <!-- END post -->
                     </div>
                 </div>

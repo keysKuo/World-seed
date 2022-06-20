@@ -49,3 +49,7 @@ exports.calculateAge = function (birthday) { // birthday is a date
 	return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
+
+exports.count = function(value, arr) {
+	return arr.filter(x => x.type == value).length;
+}

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Users = require('../models/Users');
 const Blogs = require('../models/Blogs');
-const { normalizeDate } = require('../libs/functions');
+const { normalizeDate, count } = require('../libs/functions');
 const res = require('express/lib/response');
 const { type } = require('express/lib/response');
 
@@ -87,35 +87,38 @@ router.get('/', (req, res, next) => {
 				top3: data[len - 3]
 			}
 
+			var counter = new Object();
+			['Food', 'Travel', 'Life', 'Business', 'Adventure'].forEach(c => {
+				counter[c] = count(c, data);
+			})
+
 			var randomBlogger = data[Math.round(Math.random() * (len - 1))].author;
 			var current_user = req.session.user;
 			console.log(randomBlogger.authorSlug);
 			return res.render('index', {
-				googleId: (current_user && current_user.googleId) ? current_user.googleId : '',
 				layouts: true,
 				sidebars: false,
-				slides: slides,
 				signed: current_user ? true : false,
+				category: true,
+				footer: true,
+				googleId: (current_user && current_user.googleId) ? current_user.googleId : '',
+				slides: slides,
 				slug: current_user ? current_user.slug : '',
 				status: current_user ? 'Đăng Xuất' : 'Đăng Nhập',
 				username: current_user ? current_user.username : 'Người lạ',
-				signed: current_user ? true : false,
 				bloggerName: randomBlogger.username,
 				bloggerSlug: randomBlogger.authorSlug,
 				avatar: randomBlogger.avatar,
 				bloggerBio: randomBlogger.user_bio,
 				main_color: current_user ? current_user.main_color : 'black',
 				concept: 'World Seed',
+				counter,
 				data: data.reverse(),
 			})
 		})
 		.catch(next);
 });
 
-router.post('/', (req, res, next) => {
-	const { idx } =  req.body;
-	
-})
 
 // collections slug
 router.get('/collections/:key', (req, res, next) => {

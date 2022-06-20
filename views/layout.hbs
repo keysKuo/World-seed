@@ -150,7 +150,7 @@
               {{/if}}
 
             </p>
-            <p><a href="/users/{{bloggerSlug}}" class="btn btn-primary btn-sm rounded">Read my bio</a></p>
+            <p><a href="/users/{{bloggerSlug}}" class="btn btn-primary btn-sm rounded" style="background-color: {{main_color}}; border: {{main_color}}">Read my bio</a></p>
             <p class="social">
               <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
               <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
@@ -204,92 +204,97 @@
       </div> --}}
       <!-- END sidebar-box -->
 
-      {{!-- <div class="sidebar-box">
+      {{#if category}}
+      <div class="sidebar-box">
         <h3 class="heading">Categories</h3>
         <ul class="categories">
-          <li><a href="#">Food <span>(12)</span></a></li>
-          <li><a href="#">Travel <span>(22)</span></a></li>
-          <li><a href="#">Lifestyle <span>(37)</span></a></li>
-          <li><a href="#">Business <span>(42)</span></a></li>
-          <li><a href="#">Adventure <span>(14)</span></a></li>
+          <li><a href="/collections/Food">Food <span>{{counter.Food}}</span></a></li>
+          <li><a href="/collections/Travel">Travel <span>{{counter.Travel}}</span></a></li>
+          <li><a href="/collections/Life">Lifestyle <span>{{counter.Life}}</span></a></li>
+          <li><a href="/collections/Business">Business <span>{{counter.Business}}</span></a></li>
+          <li><a href="/collections/Adventure">Adventure <span>{{counter.Adventure}}</span></a></li>
         </ul>
       </div>
-      <!-- END sidebar-box -->
 
       <div class="sidebar-box">
         <h3 class="heading">Tags</h3>
         <ul class="tags">
-          <li><a href="#">Travel</a></li>
-          <li><a href="#">Adventure</a></li>
-          <li><a href="#">Food</a></li>
-          <li><a href="#">Lifestyle</a></li>
-          <li><a href="#">Business</a></li>
-          <li><a href="#">Freelancing</a></li>
-          <li><a href="#">Travel</a></li>
-          <li><a href="#">Adventure</a></li>
-          <li><a href="#">Food</a></li>
-          <li><a href="#">Lifestyle</a></li>
-          <li><a href="#">Business</a></li>
-          <li><a href="#">Freelancing</a></li>
+          <li><a href="/collections/Travel">Travel</a></li>
+          <li><a href="/collections/Adventure">Adventure</a></li>
+          <li><a href="/collections/Food">Food</a></li>
+          <li><a href="/collections/Life">Lifestyle</a></li>
+          <li><a href="/collections/Business">Business</a></li>
+          <li><a href="/collections/Freelancing">Freelancing</a></li>
+          <li><a href="/collections/Travel">Travel</a></li>
+          <li><a href="/collections/Adventure">Adventure</a></li>
+          <li><a href="/collections/Food">Food</a></li>
+          <li><a href="/collections/Life">Lifestyle</a></li>
+          <li><a href="/collections/Business">Business</a></li>
+          <li><a href="/collections/Freelancing">Freelancing</a></li>
         </ul>
       </div>
     </div>
-    <!-- END sidebar --> --}}
+      {{/if}}
+      <!-- END sidebar-box -->
+
+      
+    <!-- END sidebar -->
 
   </div>
   </div>
   </section>
-  {{!--
+  
+  {{#if footer}}
   <footer class="site-footer">
     <div class="container">
       <div class="row mb-5">
         <div class="col-md-4">
           <h3>About Us</h3>
-          <p class="mb-4">
-            <img src="images/img_1.jpg" alt="Image placeholder" class="img-fluid">
-          </p>
+          <div class="mb-4 text-center">
+            <img width="70%" src="images/logo.png" alt="Image placeholder" class="img-fluid">
+          </div>
+            <p>SUD là đội nhóm được tập hợp bởi các sinh viên K24 khoa CNTT Đại học Tôn Đức Thắng... <a
+                href="#">Read More</a></p>
 
-          <p>Lorem ipsum dolor sit amet sa ksal sk sa, consectetur adipisicing elit. Ipsa harum inventore reiciendis. <a
-              href="#">Read More</a></p>
         </div>
         <div class="col-md-6 ml-auto">
           <div class="row">
             <div class="col-md-7">
-              <h3>Latest Post</h3>
+              <h3>Popular Post</h3>
               <div class="post-entry-sidebar">
                 <ul>
                   <li>
-                    <a href="">
-                      <img src="images/img_6.jpg" alt="Image placeholder" class="mr-4">
+                    <a href="/blogs/{{slides.top1.slug}}">
+                      <img src="/uploads/{{slides.top1.image}}" alt="Image placeholder" class="mr-4">
                       <div class="text">
-                        <h4>How to Find the Video Games of Your Youth</h4>
+                        <h4>{{slides.top1.title}}</h4>
                         <div class="post-meta">
-                          <span class="mr-2">March 15, 2018 </span> &bullet;
-                          <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                          <span class="mr-2">{{slides.top1.createdAt}} </span> &bullet;
+                          <span class="ml-2"><span class="ti-thumb-up"></span> {{slides.top1.num_likes}}</span>
                         </div>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <a href="">
-                      <img src="images/img_3.jpg" alt="Image placeholder" class="mr-4">
+                    <a href="/blogs/{{slides.top2.slug}}">
+                      <img src="/uploads/{{slides.top2.image}}" alt="Image placeholder" class="mr-4">
                       <div class="text">
-                        <h4>How to Find the Video Games of Your Youth</h4>
+                        <h4>{{slides.top2.title}}</h4>
                         <div class="post-meta">
-                          <span class="mr-2">March 15, 2018 </span> &bullet;
-                          <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                          <span class="mr-2">{{slides.top2.createdAt}} </span> &bullet;
+                          <span class="ml-2"><span class="ti-thumb-up"></span> {{slides.top2.num_likes}}</span>
                         </div>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <a href="">
-                      <img src="images/img_4.jpg" alt="Image placeholder" class="mr-4">
+                    <a href="/blogs/{{slides.top3.slug}}">
+                      <img src="/uploads/{{slides.top3.image}}" alt="Image placeholder" class="mr-4">
                       <div class="text">
-                        <h4>How to Find the Video Games of Your Youth</h4>
+                        <h4>{{slides.top3.title}}</h4>
                         <div class="post-meta">
-                          <span class="mr-2">March 15, 2018 </span> &bullet;
-                          <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                          <span class="mr-2">{{slides.top3.createdAt}} </span> &bullet;
+                          <span class="ml-2"><span class="ti-thumb-up"></span> {{slides.top3.num_likes}}</span>
                         </div>
                       </div>
                     </a>
@@ -333,15 +338,16 @@
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             Copyright &copy;
             <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-            <script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with
-            <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
-              target="_blank">Colorlib</a>
+            <script>document.write(new Date().getFullYear());</script> All Rights Reserved | This website is made with
+            <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="#"
+              target="_blank">SUD Technology</a>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           </p>
         </div>
       </div>
     </div>
-  </footer> --}}
+  </footer>
+  {{/if}}
   <!-- END footer -->
 
   </div>
