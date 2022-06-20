@@ -2390,14 +2390,15 @@ input[type=text]:placeholder {
   margin: 20px auto;
   padding: 10px;
   border-radius: 10px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   background-color: white;
   transition: .3s;
 }
 #loadMore:hover {
-  color: black;
+  color: rgb(54, 60, 61);
   background-color: #fff;
-  border: 1px solid black;
+  border: 2px solid black;
   text-decoration: none;
+  box-shadow:#000000 0px 0px 0px 0px
 }
 
