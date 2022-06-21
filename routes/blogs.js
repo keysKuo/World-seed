@@ -9,7 +9,7 @@ const upload_dir = pathapi.join(__dirname, "../uploads")
 const multiparty = require('multiparty');
 const Users = require('../models/Users');
 const Comments = require('../models/Comments');
-const {normalizeDate, normalizeDateAndTime} = require('../libs/functions');
+const { normalizeDate, normalizeDateAndTime } = require('../libs/functions');
 
 
 
@@ -35,7 +35,7 @@ router.get('/create', (req, res) => {
 		return res.redirect('/users/login');
 	}
 
-	res.render('create', {status: 'Đăng Xuất'});
+	res.render('create', { status: 'Đăng Xuất' });
 })
 
 
@@ -45,7 +45,7 @@ router.post('/create', (req, res) => {
 		if (err) {
 			return res.render("create", { message: err.message, ...fields })
 		}
-		
+
 		if (!files.photo || files.photo.length == 0) {
 			return res.render("create", { message: "Chưa chọn file hình", ...fields });
 		}
@@ -92,14 +92,14 @@ router.post('/create', (req, res) => {
 		var user = req.session.user;
 
 		var author = {
-				username: user.username,
-				avatar: user.avatar,
-				personal_concept: user.personal_concept,
-				main_color: user.main_color,
-				user_bio: user.user_bio,
-				authorSlug: user.slug,
+			username: user.username,
+			avatar: user.avatar,
+			personal_concept: user.personal_concept,
+			main_color: user.main_color,
+			user_bio: user.user_bio,
+			authorSlug: user.slug,
 		}
-		
+
 
 		var myPost = {
 			author: author,
@@ -111,38 +111,82 @@ router.post('/create', (req, res) => {
 		}
 
 		var count = user.blog_counter + 1;
-		
-		Users.findOneAndUpdate({username: user.username},{blog_counter: count},{}, () => {
+
+		Users.findOneAndUpdate({ username: user.username }, { blog_counter: count }, {}, () => {
 			new Blogs(myPost).save().then(res.redirect('/'));
 		})
-		
+
 	})
 })
 
-router.get('/delete/:id',(req, res, next) => {
-	Blogs.findOne({_id: req.params.id})
+// delete a blog
+router.get('/delete/:id', (req, res, next) => {
+	Blogs.findOne({ _id: req.params.id })
 		.then(blog => {
-			if(!blog) {
+			if (!blog) {
 				return res.redirect('/');
 			}
 
 			var count = req.session.user.blog_counter - 1;
 			var userId = req.session.user._id;
 
-			Users.findOneAndUpdate({_id: userId},{blog_counter: count},{}, () => {
+			Users.findOneAndUpdate({ _id: userId }, { blog_counter: count }, {}, () => {
 				blog.delete().then(res.redirect('/'));
 			})
 		})
 		.catch(next);
-	
+})
+
+// edit a blog
+router.get('/edit/:id', (req, res, next) => {
+	// req.session.slug = req.params.slug;
+	Blogs.findOne({ _id: req.params.id })
+		.then(blog => {
+			console.log(blog.title)
+			console.log(blog._id)
+			if (!blog) {
+				return res.render('blogs', { msg: "Không tìm thấy bài đăng này" });
+			}
+			const username = req.session.user ? req.session.user.username : 'Người lạ';
+			let liked = blog.likers.includes(username);
+			// console.log(liked);
+			var data = {
+				blog_id: blog._id,
+				author: blog.author,
+				type: blog.type,
+				image: blog.image,
+				title: blog.title,
+				content: blog.content,
+				createdAt: normalizeDateAndTime(blog.createdAt)
+			};
+			return res.render('editblog', {
+				// layouts: true,
+				// liked: liked,
+				signed: req.session.user ? true : false,
+				// num_likes: blog.likers.length,
+				id: username == blog.author.username ? blog._id : null,
+				concept: blog.author.personal_concept,
+				main_color: blog.author.main_color,
+				// avatar: blog.author.avatar,
+				username: username,
+				slug: blog.slug,
+				bloggerName: blog.author.username,
+				bloggerSlug: blog.author.authorSlug,
+				status: req.session.user ? 'Logout' : 'Login',
+				data: data,
+				// comments: comments
+			})
+		})
+		.catch(next)
+
 })
 
 router.post('/:id/comments', (req, res, next) => {
-	if(!req.session.user) {
+	if (!req.session.user) {
 		return res.redirect('/users/login');
 	}
 
-	if(!req.body.content) {
+	if (!req.body.content) {
 		return res.redirect(`/blogs/${req.session.slug}`);
 	}
 
@@ -175,21 +219,21 @@ router.get('/:slug', (req, res, next) => {
 
 			const username = req.session.user ? req.session.user.username : 'Người lạ';
 			let liked = blog.likers.includes(username);
-			
-			console.log(liked);
 
-			var data = { 
+			// console.log(liked);
+
+			var data = {
 				blog_id: blog._id,
-				author: blog.author, 
-				type: blog.type, 
-				image: blog.image, 
-				title: blog.title, 
+				author: blog.author,
+				type: blog.type,
+				image: blog.image,
+				title: blog.title,
 				content: blog.content,
-				createdAt: normalizeDateAndTime(blog.createdAt) 
+				createdAt: normalizeDateAndTime(blog.createdAt)
 			};
 
 			var comments = [];
-			Comments.find({post_id: blog._id})
+			Comments.find({ post_id: blog._id })
 				.then(cms => {
 					comments = cms.map(c => {
 						return {
@@ -201,7 +245,7 @@ router.get('/:slug', (req, res, next) => {
 						}
 					})
 
-					return res.render('blog-single', { 
+					return res.render('blog-single', {
 						layouts: true,
 						liked: liked,
 						signed: req.session.user ? true : false,
@@ -228,17 +272,16 @@ router.get('/:slug', (req, res, next) => {
 })
 
 router.post('/:slug', (req, res, next) => {
-	
-	Blogs.findOne({slug: req.params.slug})
+	Blogs.findOne({ slug: req.params.slug })
 		.then(blog => {
-			if(!blog) {
+			if (!blog) {
 				return res.redirect('/');
 			}
-			if(req.body.signal) {
+			if (req.body.signal) {
 				blog.likers.push(req.body.username);
 				blog.save();
 			}
-			else {			
+			else {
 				blog.likers.remove(req.body.username);
 				blog.save();
 			}

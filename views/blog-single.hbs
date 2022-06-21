@@ -34,7 +34,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {{!-- <a class="dropdown-item" href="#">Info</a> --}}
-              <a class="dropdown-item" href="#">Edit</a>
+              <a class="dropdown-item" href="/blogs/edit/{{id}}">Edit</a>
               <a class="dropdown-item" href="/blogs/delete/{{id}}">Delete</a>
             </div>
             {{/if}}
@@ -47,7 +47,6 @@
 
         <div class="post-content-body">
           <p class="text-justify">{{data.content}}</p>
-
         </div>
 
 
