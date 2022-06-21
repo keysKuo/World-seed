@@ -231,7 +231,6 @@ router.post('/:slug', (req, res, next) => {
 	
 	Blogs.findOne({slug: req.params.slug})
 		.then(blog => {
-			
 			if(!blog) {
 				return res.redirect('/');
 			}

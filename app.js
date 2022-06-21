@@ -30,10 +30,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // để xài những file ảnh có sãn
-app.use('*/images',express.static(path.join(__dirname, 'public/images')));
-app.use('*/js',express.static(path.join(__dirname, 'public/js')));
-app.use('*/css',express.static(path.join(__dirname, 'public/css')));
-app.use('/fonts',express.static(path.join(__dirname, 'public/fonts')));
+app.use('*/images', express.static(path.join(__dirname, 'public/images')));
+app.use('*/js', express.static(path.join(__dirname, 'public/js')));
+app.use('*/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/fonts', express.static(path.join(__dirname, 'public/fonts')));
 
 // để upload file hình ảnh từ user lên
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -61,13 +61,13 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
   new GoogleStrategy({
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback',
-      proxy: true
-    },
+    clientID: keys.googleClientID,
+    clientSecret: keys.googleClientSecret,
+    callbackURL: '/auth/google/callback',
+    proxy: true
+  },
     async (accessToken, refreshToken, profile, done) => {
-      const existingUser = await Users.findOne({googleId: profile.id});
+      const existingUser = await Users.findOne({ googleId: profile.id });
       // console.log(profile);
       if (existingUser) {
         return done(null, existingUser);
@@ -80,7 +80,7 @@ passport.use(
         username: profile.displayName,
         main_color: '#000000',
         avatar: "logo.png",
-        slug: profile.displayName.toLowerCase().replace(' ','-'),
+        slug: profile.displayName.toLowerCase().replace(' ', '-'),
       }).save();
 
       done(null, user);
@@ -95,14 +95,14 @@ app.get(
 );
 
 app.get('/auth/google/callback', passport.authenticate('google'), (req, res, next) => {
-  if(req.user) {
+  if (req.user) {
     req.session.user = req.user;
     req.session.slug = req.user.slug;
     return res.redirect('/');
   }
 
   return send('404 Not Found');
-}); 
+});
 
 
 
