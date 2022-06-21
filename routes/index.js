@@ -88,7 +88,7 @@ router.get('/', (req, res, next) => {
 			}
 
 			var counter = new Object();
-			['Food', 'Travel', 'Life', 'Business', 'Adventure'].forEach(c => {
+			['Food', 'Travel', 'Life', 'Business', 'Adventure', 'Sport', 'Technology'].forEach(c => {
 				counter[c] = count(c, data);
 			})
 

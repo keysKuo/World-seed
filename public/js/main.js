@@ -239,5 +239,39 @@ $('#unlikeBtn').click(function() {
   })
 })
 
+$('.edit-post').click(async function(e) {
+  e.preventDefault();
+  const old_content = await document.getElementById('post-content').innerHTML;
+  $('#post-content').hide();
+  document.getElementById('edit-post-box').value = old_content;
+  $('#form-edit-post').removeClass('d-none').focus();
+})
+
+$('#confirm-edit-post').click(async function(e) {
+  e.preventDefault();
+  
+  const new_content = await document.getElementById('edit-post-box').value;
+  const urls = window.location.pathname.split('/');
+  const id = urls[2];
+  console.log(new_content);
+
+  $('#form-edit-post').hide();
+  document.getElementById('post-content').innerHTML = new_content;
+  
+  
+
+  $.ajax({
+    url: "/" + urls[1] + "/edit/" + urls[2],
+    method: 'POST',
+    data: {
+      new_content: new_content,
+      id: id
+    },
+    
+    success: function(result) {
+      $('#post-content').show();
+    }
+  })
+})
 
 

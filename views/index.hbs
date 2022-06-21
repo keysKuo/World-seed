@@ -110,30 +110,30 @@
 
 
           <div class="col-md-6">
-           
+
           </div>
         </div>
 
-        
+
 
       </div>
 
       <!-- END main-content -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script>  
-      
-      $(document).ready(function(){
-        $(".single-post").slice(6).hide();
-        $("#loadMore").on("click", function(e){
-          e.preventDefault();
-          $(".single-post:hidden").slice(0, 6).fadeIn();
-          if($(".single-post:hidden").length == 0) {
-            $('#loadMore').hide();
-          }
-        });
-        
-      })
+      <script>
 
-    </script>
+        $(document).ready(function () {
+          $(".single-post").slice(6).hide();
+          $("#loadMore").on("click", function (e) {
+            e.preventDefault();
+            $(".single-post:hidden").slice(0, 6).fadeIn();
+            if ($(".single-post:hidden").length == 0) {
+              $('#loadMore').hide();
+            }
+          });
+
+        })
+
+      </script>

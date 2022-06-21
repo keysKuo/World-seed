@@ -359,10 +359,6 @@ router.get('/:slug', (req, res, next) => {
 		.catch(next);
 })
 
-// forgot password
-
-
-
 // router
 
 module.exports = router;

@@ -10,7 +10,7 @@
           <div class="col-md-12 col-lg-8 main-content">
             
              <div class="post-meta">
-                <h1 class="mb-4">{{data.title}}</h1>
+                <h1 id="blog-name" class="mb-4">{{data.title}}</h1>
              
                 <div class="dropdown">
                   <span class="author mr-2"><img src="/uploads/{{avatar}}" alt="{{bloggerName}}" class="mr-2"> {{bloggerName}}</span>&bullet;
@@ -33,7 +33,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       {{!-- <a class="dropdown-item" href="#">Info</a> --}}
-                      <a class="dropdown-item" href="#">Edit</a>
+                      <a class="edit-post dropdown-item" href="#">Edit</a>
                       <a class="dropdown-item" href="/blogs/delete/{{id}}">Delete</a>
                     </div>
                   {{/if}}
@@ -45,8 +45,13 @@
             <img src="/uploads/{{data.image}}" alt="Image" class="img-fluid mb-5">
            
             <div class="post-content-body">
-              <p class="text-justify">{{data.content}}</p>
-            
+              <p id="post-content" class="text-justify">{{data.content}}</p>
+              <form id="form-edit-post" class="d-none" action="/blogs/edit/{{data.blog_id}}" method="POST">
+              <textarea autofocus name="new_content" id="edit-post-box" class=" form-control " cols="30" rows="10"></textarea>
+                <button type="submit" id="confirm-edit-post" class="ml-auto mt-3 btn btn-primary">Edit</button>
+              
+              </form>
+              
             </div>
 
             
@@ -80,7 +85,7 @@
                 <form method="POST" action="/blogs/{{data.blog_id}}/comments" class="p-5 bg-light">
                   <div class="form-group">
                     <label for="message">Comments</label>
-                    <textarea required name="content" id="message" cols="30" rows="10" class="form-control"></textarea>
+                    <textarea required name="content" id="message" cols="30" rows="5" class="form-control"></textarea>
                   </div>
                   <div class="form-group">
                     <input id="post-comment" type="submit" style="background-color: {{main_color}}; border: {{main_color}}" value="Post Comment" class="btn btn-primary">
