@@ -1,100 +1,100 @@
+<!-- END header -->
 
-      <!-- END header -->
+<section class="site-section py-lg">
+  <div class="container">
 
-    <section class="site-section py-lg">
-      <div class="container">
-        
-        
-        <div class="row blog-entries element-animate">
-        
-          <div class="col-md-12 col-lg-8 main-content">
-            
-             <div class="post-meta">
-                <h1 class="mb-4">{{data.title}}</h1>
-             
-                <div class="dropdown">
-                  <span class="author mr-2"><img src="/uploads/{{avatar}}" alt="{{bloggerName}}" class="mr-2"> {{bloggerName}}</span>&bullet;
-                  <span class="mr-2">{{data.createdAt}}</span> &bullet;
-                  <span  class="ml-2"><span class="ti-thumb-up"></span> <span id="like-count">{{num_likes}}</span> </span> 
-                  {{#if signed}}
-                      {{#if liked}}
-                      <span id="unlikeBtn" class="btn btn-primary ti-heart"></span>
-                      <span id="likeBtn" class="d-none btn btn-primary ti-heart-broken"></span> 
-                    {{else}}
-                      <span id="unlikeBtn" class="d-none btn btn-primary ti-heart"></span>
-                      <span id="likeBtn" class="btn btn-primary ti-heart-broken"></span> 
 
-                    {{/if}}
+    <div class="row blog-entries element-animate">
 
-                  {{/if}}
-                  {{#if id}}
-                    <button class="btn bg-transparent dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span class="fa fa-solid fa-gear"> </span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      {{!-- <a class="dropdown-item" href="#">Info</a> --}}
-                      <a class="dropdown-item" href="#">Edit</a>
-                      <a class="dropdown-item" href="/blogs/delete/{{id}}">Delete</a>
-                    </div>
-                  {{/if}}
-                </div>
-              </div>
+      <div class="col-md-12 col-lg-8 main-content">
 
-              
-            <a class="category mb-5" href="#">{{data.type}}</a> <a class="category mb-5" href="#">Life</a>
-            <img src="/uploads/{{data.image}}" alt="Image" class="img-fluid mb-5">
-           
-            <div class="post-content-body">
-              <p class="text-justify">{{data.content}}</p>
-            
+        <div class="post-meta">
+          <h1 class="mb-4">{{data.title}}</h1>
+
+          <div class="dropdown">
+            <span class="author mr-2"><img src="/uploads/{{avatar}}" alt="{{bloggerName}}" class="mr-2">
+              {{bloggerName}}</span>&bullet;
+            <span class="mr-2">{{data.createdAt}}</span> &bullet;
+            <span class="ml-2"><span class="ti-thumb-up"></span> <span id="like-count">{{num_likes}}</span> </span>
+            {{#if signed}}
+            {{#if liked}}
+            <span id="unlikeBtn" class="btn btn-primary ti-heart"></span>
+            <span id="likeBtn" class="d-none btn btn-primary ti-heart-broken"></span>
+            {{else}}
+            <span id="unlikeBtn" class="d-none btn btn-primary ti-heart"></span>
+            <span id="likeBtn" class="btn btn-primary ti-heart-broken"></span>
+
+            {{/if}}
+
+            {{/if}}
+            {{#if id}}
+            <button class="btn bg-transparent dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-solid fa-gear"> </span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {{!-- <a class="dropdown-item" href="#">Info</a> --}}
+              <a class="dropdown-item" href="#">Edit</a>
+              <a class="dropdown-item" href="/blogs/delete/{{id}}">Delete</a>
             </div>
-
-            
-            <div class="pt-5">
-              <p>Categories:  <a href="#">{{data.type}}</a>, <a href="#">Life</a>  Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
-            </div>
-
-
-            <div class="pt-5">
-              <h3 class="mb-5">Comments</h3>
-              <ul class="comment-list">
-                {{#each comments}}
-                <li class="comment">
-                  <div class="vcard">
-                    <img src="/uploads/{{user.avatar}}" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>{{user.name}}</h3>
-                    <div class="meta">{{createdAt}}</div>
-                    <p>{{content}}</p>
-                    <p><a href="#" class="reply rounded">Reply</a></p>
-                  </div>
-                </li>
-                {{/each}}
-
-                
-              </ul>
-              <!-- END comment-list -->
-              
-              <div class="comment-form-wrap pt-5">
-                <h3 class="mb-3">Leave a comment</h3>
-                <form method="POST" action="/blogs/{{data.blog_id}}/comments" class="p-5 bg-light">
-                  <div class="form-group">
-                    <label for="message">Comments</label>
-                    <textarea required name="content" id="message" cols="30" rows="10" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <input id="post-comment" type="submit" value="Post Comment" class="btn btn-primary">
-                  </div>
-
-                </form>
-              </div>
-            </div>
-
-      
-
+            {{/if}}
           </div>
+        </div>
 
-          <!-- END main-content -->
 
-       
+        <a class="category mb-5" href="/collections/{{data.type}}">{{data.type}}</a>
+        <img src="/uploads/{{data.image}}" alt="Image" class="img-fluid mb-5">
+
+        <div class="post-content-body">
+          <p class="text-justify">{{data.content}}</p>
+
+        </div>
+
+
+        <div class="pt-5">
+          <p>Categories: <a href="/collections/{{data.type}}">{{data.type}}</a> - Tags: <a href="#">#manila</a>, <a
+              href="#">#asia</a>, <a href="#">#vietnam</a> </p>
+        </div>
+
+
+        <div class="pt-5">
+          <h3 class="mb-5">Comments</h3>
+          <ul class="comment-list">
+            {{#each comments}}
+            <li class="comment">
+              <div class="vcard">
+                <img src="/uploads/{{user.avatar}}" alt="Image placeholder">
+              </div>
+              <div class="comment-body">
+                <h3>{{user.name}}</h3>
+                <div class="meta">{{createdAt}}</div>
+                <p>{{content}}</p>
+                <p><a href="#" class="reply rounded">Reply</a></p>
+              </div>
+            </li>
+            {{/each}}
+
+
+          </ul>
+          <!-- END comment-list -->
+
+          <div class="comment-form-wrap pt-5">
+            <h3 class="mb-3">Leave a comment</h3>
+            <form method="POST" action="/blogs/{{data.blog_id}}/comments" class="p-5 bg-light">
+              <div class="form-group">
+                <label for="message">Comments</label>
+                <textarea required name="content" id="message" cols="30" rows="10" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <input id="post-comment" type="submit" value="Post Comment" class="btn btn-primary">
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <!-- END main-content -->
