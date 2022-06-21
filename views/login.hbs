@@ -39,7 +39,6 @@
       </form>
 
 
-
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <div class="row ">
@@ -60,9 +59,9 @@
     </div>
   </div>
 
+  {{!-- register form --}}
   <div class="form-register fadeInDown">
     <div id="formContent">
-
       <div class="form-group">
         <form action="/users/register" method="POST">
           <div class="register-box"><br>
@@ -72,10 +71,7 @@
             <input name="password" type="password" id="password" class="fadeIn second" name="login"
               placeholder="Password">
           </div>
-
           <input type="submit" class="fadeIn third" value="Register">
-
-
           <!-- Remind Passowrd -->
           <div id="formFooter">
             <a class="login-btn underlineHover" href="#">Sign in</a><br>
@@ -87,7 +83,7 @@
     </div>
   </div>
 
-
+  {{!--forgot password form --}}
   <div class="form-forgotpassword fadeInDown">
     <div id="formContent">
       <div class="form-group">
@@ -105,7 +101,7 @@
           <!-- Remind Passowrd -->
           <div id="formFooter">
             <a class="login-btn underlineHover" href="#">Sign in</a><br>
-            <a class="forgotpassword-btn underlineHover" href="#">Forgot Password?</a>
+            {{!-- <a class="forgotpassword-btn underlineHover" href="#">Forgot Password?</a> --}}
           </div>
         </form>
       </div>
@@ -131,6 +127,7 @@
 
       $('.login-btn').click(function () {
         $('.form-register').hide();
+        $('.form-forgotpassword').hide();
         $('.form-login').fadeIn();
         $('#username').focus();
       })
