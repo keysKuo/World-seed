@@ -214,7 +214,7 @@ router.get('/:slug', (req, res, next) => {
 						slug: blog.slug,
 						bloggerName: blog.author.username,
 						bloggerSlug: blog.author.authorSlug,
-						status: req.session.user ? 'Logout' : 'Login',
+						status: req.session.user ? 'Đăng xuất' : 'Đăng nhập',
 						data: data,
 						comments: comments
 					})

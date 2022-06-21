@@ -51,7 +51,7 @@
 
             
             <div class="pt-5">
-              <p>Categories:  <a href="#">{{data.type}}</a>, <a href="#">Life</a>  Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
+              <p>Categories:  <a href="/collections/{{data.type}}">{{data.type}}</a>, <a href="/collections/Life">Life</a>  Tags: <a href="#">#{{slug}}</a>, <a href="#">#asia</a></p>
             </div>
 
 
@@ -67,7 +67,6 @@
                     <h3>{{user.name}}</h3>
                     <div class="meta">{{createdAt}}</div>
                     <p>{{content}}</p>
-                    <p><a href="#" class="reply rounded">Reply</a></p>
                   </div>
                 </li>
                 {{/each}}
@@ -84,7 +83,7 @@
                     <textarea required name="content" id="message" cols="30" rows="10" class="form-control"></textarea>
                   </div>
                   <div class="form-group">
-                    <input id="post-comment" type="submit" value="Post Comment" class="btn btn-primary">
+                    <input id="post-comment" type="submit" style="background-color: {{main_color}}; border: {{main_color}}" value="Post Comment" class="btn btn-primary">
                   </div>
 
                 </form>

@@ -2402,3 +2402,9 @@ input[type=text]:placeholder {
   box-shadow:#000000 0px 0px 0px 0px
 }
 
+.avatar-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 0.5rem;
+}
+
