@@ -1,5 +1,7 @@
 const fs = require("fs")
 const pathapi = require('path');
+const sharp = require('sharp');
+
 exports.move = (oldpath, newpath, callback) => {
     // Read the file
     fs.readFile(oldpath, function (err, data) {
@@ -55,4 +57,23 @@ exports.isexist = (path) => {
     } catch (err) {
     }
     return false
+}
+
+exports.resize = (input, output, w, h) => {
+    sharp(input).resize({height: h, width: w}).toFile(output)
+    .then(function(newFileInfo) {
+        console.log(newFileInfo);
+        console.log("Resized");
+    })
+    .catch(function(err) {
+        console.log(err);
+        console.log("Error occured");
+    });
+}
+
+exports.unlink = (path) => {
+    fs.unlink(path, function (err) {
+        //if (err) throw err; không xét lỗi xóa
+        console.log('File deleted!');
+    });
 }

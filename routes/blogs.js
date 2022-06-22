@@ -10,8 +10,7 @@ const multiparty = require('multiparty');
 const Users = require('../models/Users');
 const Comments = require('../models/Comments');
 const { normalizeDate, normalizeDateAndTime } = require('../libs/functions');
-const { fail } = require('assert');
-
+const { fstat } = require('fs');
 
 
 // Blogs.find({}, (err, blogs) => {
@@ -64,10 +63,13 @@ router.post('/create', (req, res) => {
 
 		let newname = filename.substr(0, filename.length - ext.length - 1)
 		let idx = ""
+		
+		
 		//cố định phần mở rộng là png vì người dùng có thể upload 2 file cùng tên khác phần mở rộng thì hệ thống sẽ không thể lưu 2 file ghi chú cùng tên với phần mở rộng là txt được.
 		//có thể không cần cố định phần mở rộng bằng cách dùng tên file ngẫu nhiên
 		ext = "png"
 		filename = newname + '.' + ext
+		
 		while (fileapi.isexist(pathapi.join(upload_dir, filename))) {
 			if (!idx)
 				idx = 1
@@ -76,19 +78,25 @@ router.post('/create', (req, res) => {
 			filename = newname + idx.toString() + '.' + ext
 			// console.log(upload_dir, filename)
 		}
+		
 		let newpath = pathapi.join(upload_dir, filename)
+		fileapi.resize(path, newpath, 1920, 1080);
 
 		fileapi.move(path, newpath, (err) => {
 			if (err)
 				return res.render("create", { message: "không thể lưu tập tin: " + err.message, ...fields })
 			//lưu ghi chú nếu có
 			if (fields.note && fields.note.length > 0 && fields.note[0]) {
+
 				fileapi.writefile(pathapi.join(upload_dir, newname + idx.toString() + '.txt'), fields.note[0], err => {
 					if (err)
 						console.log('Lưu ghi chú bị lỗi:', err)
 				})
 			}
 		})
+		
+		
+		
 
 		var user = req.session.user;
 
@@ -130,6 +138,9 @@ router.get('/delete/:id', (req, res, next) => {
 
 			var count = req.session.user.blog_counter - 1;
 			var userId = req.session.user._id;
+
+			const imgName = blog.image;
+			fileapi.unlink(pathapi.join(upload_dir, imgName));
 
 			Users.findOneAndUpdate({ _id: userId }, { blog_counter: count }, {}, () => {
 				blog.delete().then(res.redirect('/'));
