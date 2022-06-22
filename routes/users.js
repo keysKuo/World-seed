@@ -339,6 +339,7 @@ router.get('/:slug', (req, res, next) => {
 				})
 
 				const current_user = req.session.user
+				const current_slug = req.session.user ? req.session.user.slug : 'Người lạ';
 
 				return res.render('about', {
 					googleId: (current_user && current_user.googleId) ? current_user.googleId : '',
@@ -353,6 +354,7 @@ router.get('/:slug', (req, res, next) => {
 					hidebox: true,
 					signed: current_user ? true : false,
 					data: data,
+					slug: current_slug,
 				});
 			});
 		})

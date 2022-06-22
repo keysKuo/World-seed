@@ -140,9 +140,9 @@ router.get('/delete/:id', (req, res, next) => {
 
 
 router.post('/edit/:id', (req, res, next) => {
-	const {new_content, id} = req.body;
+	const { new_content, id } = req.body;
 	// console.log(new_content);
-	Blogs.findOne({slug: id})
+	Blogs.findOne({ slug: id })
 		.then(blog => {
 			blog.content = new_content;
 			blog.save();
@@ -189,6 +189,9 @@ router.get('/:slug', (req, res, next) => {
 			const username = req.session.user ? req.session.user.username : 'Người lạ';
 			let liked = blog.likers.includes(username);
 
+			const current_slug = req.session.user ? req.session.user.slug : 'Người lạ';
+			const current_main_color = req.session.user ? req.session.user.main_color : '#000000';
+			const current_concept = req.session.user ? req.session.user.personal_concept : 'World Seed';
 			// console.log(liked);
 
 			var data = {
@@ -220,19 +223,23 @@ router.get('/:slug', (req, res, next) => {
 						signed: req.session.user ? true : false,
 						num_likes: blog.likers.length,
 						id: username == blog.author.username ? blog._id : null,
-						concept: blog.author.personal_concept,
-						main_color: blog.author.main_color,
+						// concept: blog.author.personal_concept,
+						concept: current_concept,
+						// main_color: blog.author.main_color,
+						main_color: current_main_color,
 						avatar: blog.author.avatar,
 						username: username,
 						// slug: blog.slug,
-						slug: blog.author.authorSlug,
+						slug: current_slug,
 						bloggerName: blog.author.username,
 						bloggerSlug: blog.author.authorSlug,
 						status: req.session.user ? 'Đăng xuất' : 'Đăng nhập',
 						data: data,
 						comments: comments,
 						// hidebox: true,
-						googleId: (req.session.user && req.session.user.googleId) ? true : false
+						googleId: (req.session.user && req.session.user.googleId) ? true : false,
+						bloggerBio: blog.author.user_bio,
+						slides: true,
 					})
 				})
 				.catch(err => {
