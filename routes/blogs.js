@@ -141,7 +141,7 @@ router.get('/delete/:id', (req, res, next) => {
 
 router.post('/edit/:id', (req, res, next) => {
 	const {new_content, id} = req.body;
-	console.log(new_content);
+	// console.log(new_content);
 	Blogs.findOne({slug: id})
 		.then(blog => {
 			blog.content = new_content;
@@ -224,12 +224,15 @@ router.get('/:slug', (req, res, next) => {
 						main_color: blog.author.main_color,
 						avatar: blog.author.avatar,
 						username: username,
-						slug: blog.slug,
+						// slug: blog.slug,
+						slug: blog.author.authorSlug,
 						bloggerName: blog.author.username,
 						bloggerSlug: blog.author.authorSlug,
 						status: req.session.user ? 'Đăng xuất' : 'Đăng nhập',
 						data: data,
-						comments: comments
+						comments: comments,
+						// hidebox: true,
+						googleId: (req.session.user && req.session.user.googleId) ? true : false
 					})
 				})
 				.catch(err => {

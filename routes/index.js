@@ -88,7 +88,7 @@ router.get('/', (req, res, next) => {
 			}
 
 			var counter = new Object();
-			['Food', 'Travel', 'Life', 'Business', 'Adventure', 'Sport', 'Technology'].forEach(c => {
+			['Food', 'Travel', 'Life', 'Business', 'Adventure', 'Sport', 'Technology', 'Entertainment'].forEach(c => {
 				counter[c] = count(c, data);
 			})
 
@@ -137,21 +137,22 @@ router.get('/collections/:key', (req, res, next) => {
 					num_likes: (blog.likers).length,
 				}
 			})
-			
+
 			const current_user = req.session.user;
 
-			return res.render('collections', { 
+			return res.render('collections', {
 				concept: req.params.key,
-				hidebox: true, 
-				layouts: true, 
+				hidebox: true,
+				layouts: true,
 				type: req.params.key,
-				username: current_user ? current_user.username : "Người lạ", 
+				username: current_user ? current_user.username : "Người lạ",
 				status: current_user ? 'Đăng Xuất' : 'Đăng Nhập',
 				main_color: current_user ? current_user.main_color : '#000000',
 				googleId: (current_user && current_user.googleId) ? current_user.googleId : '',
 				signed: current_user ? true : false,
 				slug: current_user ? current_user.slug : '',
-				data })
+				data
+			})
 		})
 		.catch(next)
 });
