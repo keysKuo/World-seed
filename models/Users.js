@@ -16,6 +16,11 @@ const Users = new Schema(
         personal_concept: { type: String },
         main_color: { type: String },
         blog_counter: { type: Number },
+        location: { type: String, default: '' },
+        job: { type: String, default: '' },
+        relationship_status: { type: String, default: '' },
+        favorite: { type: String, default: '' },
+        social_link: { type: String, default: '' },
         slug: { type: String, slug: 'email', sparse: true, unique: true }
     },
     {
