@@ -9,7 +9,7 @@ const fileapi = require("../libs/libfiles")
 const allow_extension = ["png", "jpg", "gif", "jpeg", "txt"]
 const upload_dir = pathapi.join(__dirname, "../uploads")
 const multiparty = require('multiparty');
-const { normalizeDate, calculateAge, validatorSignUp } = require('../libs/functions')
+const { normalizeDate, calculateAge, validatorSignUp, normalizeDateAndTime } = require('../libs/functions')
 
 
 
@@ -319,12 +319,15 @@ router.get('/:slug', (req, res, next) => {
 			}
 
 			var data = [];
+			var like_counter = 0;
 			Blogs.find({ "author.username": user.username }, (err, blogs) => {
 				if (err) {
 					return res.json({ success: false, msg: err });
 				}
 
+
 				data = blogs.map(blog => {
+					like_counter += blog.likers.length;
 					return {
 						authorName: user.username,
 						title: blog.title,
@@ -355,6 +358,20 @@ router.get('/:slug', (req, res, next) => {
 					signed: current_user ? true : false,
 					data: data.reverse(),
 					slug: current_slug,
+
+					bloggerEmail: user.email,
+					bloggerPhone: user.phone,
+					bloggerDOB: normalizeDate(user.dob),
+					bloggerCreatedAt: normalizeDateAndTime(user.createdAt),
+					blogCounter: user.blog_counter,
+
+					bloggerLocation: user.location ? user.location : 'Chưa cập nhật',
+					bloggerJob: user.job ? user.job : 'Chưa cập nhật',
+					bloggerRela: user.relationship_status ? user.relationship_status : 'Chưa cập nhật',
+					bloggerFav: user.favorite ? user.favorite : 'Chưa cập nhật',
+					bloggerLink: user.social_link ? user.social_link : 'Chưa cập nhật',
+					bloggerLike: like_counter,
+
 				});
 			});
 		})
