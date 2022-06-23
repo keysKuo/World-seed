@@ -10,7 +10,9 @@
             <div id="blogger-avatar">
               <img style=""  width="200px" src="/uploads/{{avatar}}" alt="">
             </div>
-            <div id="edit-profile-btn" class="btn btn-primary py-2 mt-3">Edit Profile</div>
+            {{#if auth}}
+            <div style="background-color: {{main_color}};" id="edit-profile-btn" class="btn btn-primary py-2 mt-3 ">Edit Profile</div>
+            {{/if}}
             <div id="confirm-box" class="row mt-2 d-none">
               <div class="col-md-6 px-1">
                 <div id="confirm-profile-btn" class="w-100 btn btn-info py-2 px-1 mt-3">Confirm</div>

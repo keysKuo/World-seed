@@ -388,6 +388,8 @@ router.get('/:slug', (req, res, next) => {
 					bloggerLink: user.social_link ? user.social_link : 'Chưa cập nhật',
 					bloggerLike: like_counter,
 
+					auth: (req.session.user && (req.session.user.slug == req.params.slug)) ? true : false,
+
 				});
 			});
 		})
