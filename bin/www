@@ -14,9 +14,9 @@ var http = require('http');
 
 // port 5000 3000 8080
 // var port = normalizePort('3000');
+// app.listen(process.env.PORT || 3000)
 var port = process.env.PORT || 3000
 var PORT = process.env.PORT || 3000
-// app.listen(process.env.PORT || 3000)
 app.set('port', port);
 
 /**
