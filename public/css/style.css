@@ -2408,3 +2408,9 @@ input[type=text]:placeholder {
   border-radius: 0.5rem;
 }
 
+#blogger-avatar > img {
+  border: 3px solid black;
+  border-radius: 50%;
+}
+
+
