@@ -96,8 +96,6 @@ router.post('/create', (req, res) => {
 		})
 		
 		
-		
-
 		var user = req.session.user;
 
 		var author = {
@@ -119,12 +117,13 @@ router.post('/create', (req, res) => {
 			content: fields.content[0]
 		}
 
-		var count = user.blog_counter + 1;
-
-		Users.findOneAndUpdate({ username: user.username }, { blog_counter: count }, {}, () => {
-			new Blogs(myPost).save().then(res.redirect('/'));
-		})
-
+		Users.findOne({ _id: user._id })
+			.then(user => {
+				new Blogs(myPost).save();
+				user.blog_counter++;
+				user.save().then(res.redirect('/'))
+					
+			})		
 	})
 })
 
@@ -136,15 +135,18 @@ router.get('/delete/:id', (req, res, next) => {
 				return res.redirect('/');
 			}
 
-			var count = req.session.user.blog_counter - 1;
+			// var count = req.session.user.blog_counter - 1;
 			var userId = req.session.user._id;
 
 			const imgName = blog.image;
 			fileapi.unlink(pathapi.join(upload_dir, imgName));
 
-			Users.findOneAndUpdate({ _id: userId }, { blog_counter: count }, {}, () => {
-				blog.delete().then(res.redirect('/'));
-			})
+			Users.findOne({_id: userId})
+				.then(user => {
+					blog.delete();
+					user.blog_counter--;
+					user.save().then(res.redirect('/'));
+				})
 		})
 		.catch(next);
 })

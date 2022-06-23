@@ -353,7 +353,7 @@ router.get('/:slug', (req, res, next) => {
 					status: req.session.user ? 'Đăng xuất' : 'Đăng nhập',
 					hidebox: true,
 					signed: current_user ? true : false,
-					data: data,
+					data: data.reverse(),
 					slug: current_slug,
 				});
 			});
