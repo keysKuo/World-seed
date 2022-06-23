@@ -9,7 +9,7 @@ const fileapi = require("../libs/libfiles")
 const allow_extension = ["png", "jpg", "gif", "jpeg", "txt"]
 const upload_dir = pathapi.join(__dirname, "../uploads")
 const multiparty = require('multiparty');
-const { normalizeDate, calculateAge, validatorSignUp } = require('../libs/functions')
+const { normalizeDate, calculateAge, validatorSignUp, normalizeDateAndTime } = require('../libs/functions')
 
 
 
@@ -355,6 +355,13 @@ router.get('/:slug', (req, res, next) => {
 					signed: current_user ? true : false,
 					data: data.reverse(),
 					slug: current_slug,
+
+					bloggerEmail: user.email,
+					bloggerPhone: user.phone,
+					bloggerDOB: normalizeDate(user.dob),
+					bloggerCreatedAt: normalizeDateAndTime(user.createdAt),
+					blogCounter: user.blog_counter,
+
 				});
 			});
 		})
