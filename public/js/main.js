@@ -265,7 +265,7 @@ $('#confirm-edit-post').click(async function(e) {
     method: 'POST',
     data: {
       new_content: new_content,
-      id: id
+      id: id // => req.body
     },
     
     success: function(result) {

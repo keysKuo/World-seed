@@ -186,6 +186,22 @@ router.post('/edit', (req, res, next) => {
 	})
 })
 
+router.post('/update-info/:id', (req, res, next) => {
+	const {slug, location, job, status, fav, link} = req.body;
+
+	Users.findOne({slug})
+		.then(user => {
+			user.location = location;
+			user.job = job;
+			user.relationship_status = status;
+			user.favorite = fav;
+			user.social_link = link;
+
+			user.save();
+		})
+		.catch(next);
+})
+
 // router.get('/register', (req, res) => {
 // 	res.render('register');
 // })

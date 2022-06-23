@@ -2414,3 +2414,6 @@ input[type=text]:placeholder {
 }
 
 
+span {
+  line-height: 38px;
+}
