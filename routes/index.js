@@ -57,6 +57,7 @@ Blogs.find({}, (err, blogs) => {
 })
 
 
+
 /* GET home page. */
 router.get('/', (req, res, next) => {
 	Blogs.find({})
@@ -118,6 +119,12 @@ router.get('/', (req, res, next) => {
 		})
 		.catch(next);
 });
+
+
+router.get('/team-dev', (req, res, next) => {
+	
+	return res.render('team');
+})
 
 
 // collections slug
