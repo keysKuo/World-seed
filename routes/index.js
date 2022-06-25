@@ -107,6 +107,7 @@ router.get('/', (req, res, next) => {
 				slug: current_user ? current_user.slug : '',
 				status: current_user ? 'Đăng Xuất' : 'Đăng Nhập',
 				username: current_user ? current_user.username : 'Người lạ',
+				useravatar: current_user ? current_user.avatar : "",
 				bloggerName: randomBlogger.username,
 				bloggerSlug: randomBlogger.authorSlug,
 				avatar: randomBlogger.avatar,

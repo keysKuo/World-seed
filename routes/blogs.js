@@ -164,11 +164,12 @@ router.post('/edit/:id', (req, res, next) => {
 })
 
 router.post('/:id/comments', (req, res, next) => {
+	const content = req.body.comment;
 	if (!req.session.user) {
 		return res.redirect('/users/login');
 	}
 
-	if (!req.body.content) {
+	if (!content) {
 		return res.redirect(`/blogs/${req.session.slug}`);
 	}
 
@@ -181,11 +182,11 @@ router.post('/:id/comments', (req, res, next) => {
 			name: current_user.username,
 			avatar: current_user.avatar,
 		},
-		content: req.body.content,
+		content: content,
 		likes: 0
 	}
 
-	new Comments(comment).save().then(res.redirect(`/blogs/${req.session.slug}`));
+	new Comments(comment).save();
 })
 
 
@@ -218,7 +219,7 @@ router.get('/:slug', (req, res, next) => {
 			};
 
 			var comments = [];
-			Comments.find({ post_id: blog._id })
+			Comments.find({ post_id: blog.slug })
 				.then(cms => {
 					comments = cms.map(c => {
 						return {
@@ -242,6 +243,7 @@ router.get('/:slug', (req, res, next) => {
 						// main_color: current_main_color,
 						avatar: blog.author.avatar,
 						username: username,
+						useravatar: req.session.user ? req.session.user.avatar : "",
 						// slug: blog.slug,
 						slug: current_slug,
 						bloggerName: blog.author.username,

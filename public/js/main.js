@@ -1,3 +1,5 @@
+// const { normalizeDateAndTime } = require("../../libs/functions");
+
 (function($) {
 
 	'use strict';
@@ -274,4 +276,56 @@ $('#confirm-edit-post').click(async function(e) {
   })
 })
 
+function normalizeDateAndTime(date) {
+  var hourString = date.getHours();
+	var minuteString = date.getMinutes();
 
+	if (hourString < 10) {
+		hourString = '0' + hourString;
+	}
+
+	if (minuteString < 10) {
+		minuteString = '0' + minuteString;
+	}
+
+
+	var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	return month[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' At ' + hourString + ':' + minuteString;
+}
+
+$('#post-comment').click(function(e) {
+  e.preventDefault();
+
+  var username = document.getElementById('username-comment').innerHTML;
+  var avatar = document.getElementById('avatar-comment').innerHTML;
+  var comment = document.getElementById('message').value;
+  var createdAt = normalizeDateAndTime(new Date());
+
+  let html = document.createElement('li');
+  console.log();
+  html.className = 'comment';
+  html.innerHTML = `<div class="vcard">
+                        <img src="../uploads/${avatar}" alt="Image placeholder">
+                      </div>
+                      <div class="comment-body">
+                        <h3>${username}</h3>
+                        <div class="meta">${createdAt}</div>
+                        <p>${comment}</p>
+                      </div>`
+
+  document.getElementById('comment-list').appendChild(html);
+  document.getElementById('message').value = '';
+
+  console.log(window.location.pathname);
+
+  $.ajax({
+    url: window.location.pathname + '/comments',
+    method: 'POST',
+    data: {
+      username, avatar, comment, createdAt
+    },
+    success: function(result) {
+
+    }
+  })
+})
