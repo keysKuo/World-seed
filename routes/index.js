@@ -158,7 +158,7 @@ router.get('/collections/:key', (req, res, next) => {
 				googleId: (current_user && current_user.googleId) ? current_user.googleId : '',
 				signed: current_user ? true : false,
 				slug: current_user ? current_user.slug : '',
-				data
+				data: data.reverse(),
 			})
 		})
 		.catch(next)
