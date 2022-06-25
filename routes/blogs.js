@@ -264,6 +264,7 @@ router.get('/:slug', (req, res, next) => {
 })
 
 router.post('/:slug', (req, res, next) => {
+	console.log(req.body.username, req.body.signal);
 	Blogs.findOne({ slug: req.params.slug })
 		.then(blog => {
 			if (!blog) {

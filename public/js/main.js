@@ -203,13 +203,13 @@ $('#likeBtn').click(function() {
   count++;
   document.getElementById('like-count').innerHTML = count;
   
-
+  const username = $('.user').text().trim();
   $.ajax({
     url: window.location.pathname,
     method: 'POST',
     data: {
       signal: true,
-      username: $('.user').text(),
+      username
     },
     
     success: function(result) {
@@ -225,12 +225,12 @@ $('#unlikeBtn').click(function() {
   count--
   document.getElementById('like-count').innerHTML = count;
   
-
+  const username = $('.user').text().trim();
   $.ajax({
     url: window.location.pathname,
     method: 'POST',
     data: {
-      username: $('.user').text(),
+      username
     },
     
     success: function(result) {
