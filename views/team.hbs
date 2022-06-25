@@ -206,9 +206,9 @@
             
             
             <ul class="list">
-                <li><a href="https://twitter.com/sudo_Jayasree" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="https://github.com/Jayasree77"><i class="fab fa-github"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/jayasree0708/"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a id="facebook" href="https://twitter.com/sudo_Jayasree" target="_blank" rel="noopener noreferrer"><i class="fab ti-world"></i></a></li>
+                <li><a id="github" href="https://github.com/Jayasree77" target="_blank"><i class="fab fa-github"></i></a></li>
+                <li><a id="linkedin" href="#"><i class="fab fa-linkedin-in"></i></a></li>
             </ul>
         </div>
     </div>
@@ -377,21 +377,25 @@ function getModal(trigger ,member, img) {
         document.getElementById('phone').innerHTML = member.phone;
         document.getElementById('email').innerHTML = member.email;
         document.getElementById('langs').innerHTML = member.langs;
-        
+        document.getElementById('facebook').href = member.facebook || "#";
+        document.getElementById('github').href = member.github || "#";
+        document.getElementById('linkedin').href = member.linkedin || "#";
         myModal.open();
     })
 }
 
 
 
-var triggerButton = document.getElementById('trigger-1');
+
 var Dung = {
     name: 'Kuo Nhan Dung',
     birth: '24-05-1996',
     location: 'Quận 12 TP.HCM',
     phone: '0767916592',
     email: '520H0619@student.tdtu.edu.vn',
-    langs: 'NodeJS, MongoDB, C++'
+    langs: 'NodeJS, MongoDB, C++',
+    facebook: 'https://www.facebook.com/kennon124',
+    github: 'https://github.com/keysKuo'
 }
 
 var Khiem = {
