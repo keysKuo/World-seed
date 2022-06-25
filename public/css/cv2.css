@@ -519,7 +519,7 @@ i{
     font-size: 1.5rem;
     transition: all 0.3s ease;
 }
-li:hover .ti-world{
+li:hover .ti-facebook{
     transform:translate3d(0,-10px,20px);
     color:#00acee;
 }
