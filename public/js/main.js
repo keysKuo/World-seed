@@ -302,7 +302,6 @@ $('#post-comment').click(function(e) {
   var createdAt = normalizeDateAndTime(new Date());
 
   let html = document.createElement('li');
-  console.log();
   html.className = 'comment';
   html.innerHTML = `<div class="vcard">
                         <img src="../uploads/${avatar}" alt="Image placeholder">
@@ -315,8 +314,6 @@ $('#post-comment').click(function(e) {
 
   document.getElementById('comment-list').appendChild(html);
   document.getElementById('message').value = '';
-
-  console.log(window.location.pathname);
 
   $.ajax({
     url: window.location.pathname + '/comments',
